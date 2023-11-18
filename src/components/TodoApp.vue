@@ -35,7 +35,7 @@
             </div>
           </td>
           <td>
-            <div class="text-center">
+            <div class="text-center" @click="deleteTask(index)">
               <span class="fa fa-trash"></span>
             </div>
           </td>
@@ -65,10 +65,15 @@ function submitTask() {
   if (task.value.length === 0) return;
 
   tasks.value.push({
-    name: task.value, // Access the first element of 'task' array
+    name: task.value, 
     status: "to-do",
   });
 
-  task.value = []; // Clear the 'task' array after pushing its value
+  task.value = []; 
 }
+
+function deleteTask(index){
+  tasks.value.splice(index, 1)
+}
+
 </script>
