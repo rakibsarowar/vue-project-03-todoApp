@@ -1,16 +1,14 @@
-<script setup></script>
-
 <template>
   <div class="container">
     <h2 class="text-center mt-5">My Vue Todo App</h2>
 
-    <!-- imput -->
+    <!-- input -->
     <div class="d-flex">
       <input type="text" placeholder="Enter task" class="form-control" />
       <button class="btn btn-warning rounded-0">Submit</button>
     </div>
 
-    <!-- table  -->
+    <!-- table -->
     <table class="table table-bordered mt-5">
       <thead>
         <tr>
@@ -21,16 +19,36 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td> Steal bananas from store. </td>
-          <td>To-do</td>
-          <td></td>
-          <td></td>
+        <tr v-for="(task, index) in tasks" :key="index">
+          <td>{{ task.name }}</td>
+          <td>{{ task.status }}</td>
+          <td>
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div>
+          </td>
+          <td>
+            <div class="text-center">
+              <span class="fa fa-trash"></span>
+            </div>
+          </td>
         </tr>
       </tbody>
-
     </table>
   </div>
 </template>
 
-<style scoped></style>
+<script setup>
+import { ref } from 'vue';
+
+const tasks = ref([
+  {
+    name: "Steal bananas from the box",
+    status: 'to-do'
+  },
+  {
+    name: "Buy some food",
+    status: 'in-progress'
+  }
+]);
+</script>
