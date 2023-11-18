@@ -30,7 +30,7 @@
           <td>{{ task.name }}</td>
           <td>{{ task.status }}</td>
           <td>
-            <div class="text-center">
+            <div class="text-center" @click="editTask(index)">
               <span class="fa fa-pen"></span>
             </div>
           </td>
@@ -48,7 +48,9 @@
 <script setup>
 import { ref } from "vue";
 
-const task = ref(["hello"]);
+const task = ref([]);
+
+const editedTask= ref(null)
 
 const tasks = ref([
   {
@@ -64,16 +66,25 @@ const tasks = ref([
 function submitTask() {
   if (task.value.length === 0) return;
 
+  if(editedTask.value === null) {
   tasks.value.push({
     name: task.value, 
     status: "to-do",
   });
-
+  } else{
+    tasks.value[editedTask.value].name = task.value;
+    editedTask.value = null;
+  }
   task.value = []; 
 }
 
 function deleteTask(index){
   tasks.value.splice(index, 1)
+}
+
+function editTask(index){
+  task.value = tasks.value[index].name;
+  editedTask.value = index;
 }
 
 </script>
