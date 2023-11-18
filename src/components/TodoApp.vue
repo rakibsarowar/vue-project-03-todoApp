@@ -4,8 +4,15 @@
 
     <!-- input -->
     <div class="d-flex">
-      <input type="text" placeholder="Enter task" class="form-control" />
-      <button class="btn btn-warning rounded-0">Submit</button>
+      <input
+        v-model="task"
+        type="text"
+        placeholder="Enter task"
+        class="form-control"
+      />
+      <button @click="submitTask" class="btn btn-warning rounded-0">
+        Submit
+      </button>
     </div>
 
     <!-- table -->
@@ -39,16 +46,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
+
+const task = ref(["hello"]);
 
 const tasks = ref([
   {
     name: "Steal bananas from the box",
-    status: 'to-do'
+    status: "to-do",
   },
   {
     name: "Buy some food",
-    status: 'in-progress'
-  }
+    status: "in-progress",
+  },
 ]);
+
+function submitTask() {
+  if (task.value.length === 0) return;
+
+  tasks.value.push({
+    name: task.value, // Access the first element of 'task' array
+    status: "to-do",
+  });
+
+  task.value = []; // Clear the 'task' array after pushing its value
+}
 </script>
